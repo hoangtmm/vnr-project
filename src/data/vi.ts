@@ -9,6 +9,7 @@ export const nav = [
   { path: '/organization', label: 'Tổ chức' },
   { path: '/case-studies', label: 'Tình huống' },
   { path: '/documents', label: 'Tư liệu' },
+    { path: '/quiz', label: 'Quiz' },
   { path: '/about', label: 'Giới thiệu' },
 ];
 

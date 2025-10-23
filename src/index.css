@@ -80,3 +80,78 @@
   @apply fixed inset-y-0 right-0 w-72 bg-gray-900/95 backdrop-blur border-l border-white/10 p-4;
 }
 .sheet a { @apply block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5; }
+/* ===== Quiz UI polish ===== */
+.quiz-hero {
+  @apply relative overflow-hidden rounded-2xl;
+  background: radial-gradient(1200px 400px at -10% -10%, rgba(99,102,241,.35), transparent 60%),
+              radial-gradient(1000px 500px at 110% 10%, rgba(14,165,233,.25), transparent 55%),
+              linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* choice states */
+.choice {
+  @apply relative w-full text-left px-4 py-3 rounded-xl border transition;
+  border-color: rgba(255,255,255,.1);
+  background: rgba(255,255,255,.02);
+}
+.choice:hover { border-color: rgba(99,102,241,.6); }
+.choice.correct { border-color: #34d399; background: rgba(52,211,153,.12); }
+.choice.wrong   { border-color: #fb7185; background: rgba(251,113,133,.12); }
+.choice .tick {
+  @apply inline-flex items-center justify-center mr-2 rounded-md text-xs;
+  width: 1.25rem; height: 1.25rem;
+  background: rgba(255,255,255,.08);
+}
+
+/* small progress dots */
+.progress-dots { @apply flex items-center gap-2; }
+.progress-dots .dot {
+  @apply h-2.5 w-2.5 rounded-full bg-white/20;
+}
+.progress-dots .dot.active { @apply bg-white; }
+.progress-dots .dot.done { @apply bg-indigo-400; }
+
+/* result card */
+.quiz-result {
+  @apply card p-4 border;
+  border-color: rgba(255,255,255,.1);
+}
+.quiz-chip { @apply inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-white/10; }
+
+/* confetti (simple, CSS-only) */
+@keyframes confetti-fall {
+  0% { transform: translateY(-20vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(90vh) rotate(720deg); opacity: 0; }
+}
+.confetti {
+  position: fixed; top: -10vh; left: 50%;
+  width: 8px; height: 12px; border-radius: 2px;
+  animation: confetti-fall 1.8s ease-out forwards;
+  z-index: 60;
+}
+/* ---- Fix native <select> in dark mode ---- */
+html.dark select {
+  /* buộc hệ thống render control theo giao diện dark */
+  color-scheme: dark;
+  background-color: rgba(255,255,255,.06);
+  color: #e5e7eb;           /* text */
+  border-color: rgba(255,255,255,.12);
+}
+
+/* màu của menu dropdown & các item */
+html.dark option,
+html.dark optgroup {
+  background-color: #0b1220;
+  color: #e5e7eb;
+}
+
+/* caret đẹp + padding (tùy chọn) */
+html.dark select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23c7d2fe' d='M4.47 6.47a.75.75 0 0 1 1.06 0L8 8.94l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 0-1.06Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  padding-right: 2.25rem;
+}

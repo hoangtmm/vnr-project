@@ -9,6 +9,7 @@ export const nav = [
   { path: '/organization', label: 'Organization' },
   { path: '/case-studies', label: 'Case Studies' },
   { path: '/documents', label: 'Documents' },
+    { path: '/quiz', label: 'Quiz' },
   { path: '/about', label: 'About' },
 ];
 

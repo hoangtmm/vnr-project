@@ -10,6 +10,7 @@ import Documents from "./pages/Documents";
 import DocumentDetail from "./pages/DocumentDetail";
 import About from "./pages/About";
 import Story from './pages/Story';
+import Quiz from './pages/Quiz';
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: "documents/:id", element: <DocumentDetail /> },
       { path: "about", element: <About /> },
       { path: "story", element: <Story /> },
+       { path: "quiz", element: <Quiz /> },
     ],
   },
 ]);

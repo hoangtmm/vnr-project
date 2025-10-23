@@ -5,12 +5,9 @@ export const site = {
 
 export const nav = [
   { path: '/', label: 'Trang chủ' },
-    { path: '/story', label: 'Hành trình' }, // thêm dòng này
-  { path: '/overview', label: 'Tổng quan' },
+  { path: '/story', label: 'Hành trình' },
   { path: '/organization', label: 'Tổ chức' },
-  { path: '/operations', label: 'Hoạt động' },
   { path: '/case-studies', label: 'Tình huống' },
-  { path: '/figures', label: 'Nhân vật' },
   { path: '/documents', label: 'Tư liệu' },
   { path: '/about', label: 'Giới thiệu' },
 ];

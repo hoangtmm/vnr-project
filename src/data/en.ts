@@ -5,15 +5,13 @@ export const site = {
 
 export const nav = [
   { path: '/', label: 'Home' },
-    { path: '/story', label: 'Story' },
-  { path: '/overview', label: 'Overview' },
+  { path: '/story', label: 'Story' },
   { path: '/organization', label: 'Organization' },
-  { path: '/operations', label: 'Operations' },
   { path: '/case-studies', label: 'Case Studies' },
-  { path: '/figures', label: 'Figures' },
   { path: '/documents', label: 'Documents' },
   { path: '/about', label: 'About' },
 ];
+
 
 export const timeline = [
   { year: '1975–1978', title: 'Security consolidation', desc: 'Build apparatus, stabilize public order.' },

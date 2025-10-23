@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Utilities cũ (giữ nguyên nếu bạn đã có) */
+.container-px { @apply px-4 sm:px-6 lg:px-8; }
+.section-y { @apply py-10 sm:py-14 lg:py-20; }
+.card { @apply rounded-2xl shadow-card bg-white/70 dark:bg-gray-900/60 backdrop-blur border border-gray-100/60 dark:border-gray-800; }
+.h1 { @apply text-3xl sm:text-4xl lg:text-5xl font-semibold font-display; }
+.h2 { @apply text-2xl sm:text-3xl lg:text-4xl font-semibold font-display; }
+.h3 { @apply text-xl sm:text-2xl font-semibold; }
+.muted { @apply text-gray-600 dark:text-gray-400; }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-brand-500 transition; }
+.btn-primary { @apply bg-brand-600 text-white hover:bg-brand-500; }
+.tag { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border border-gray-200 dark:border-gray-700; }
+
+/* --- Addons cho hiệu ứng mượt mà --- */
+.aurora { position: relative; overflow: hidden; }
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute; inset: -20% -10% -10% -20%;
+  background:
+    radial-gradient(40% 40% at 30% 20%, rgba(59,91,219,0.35) 0%, rgba(59,91,219,0.0) 60%),
+    radial-gradient(35% 35% at 70% 60%, rgba(54,79,199,0.35) 0%, rgba(54,79,199,0.0) 60%),
+    radial-gradient(30% 30% at 50% 90%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.0) 60%);
+  filter: blur(40px);
+  transform: translateZ(0);
+}
+.aurora::after { animation: auroraMove 18s ease-in-out infinite alternate; }
+@keyframes auroraMove {
+  0% { transform: translate(-6%, -4%) rotate(0deg); }
+  100% { transform: translate(6%, 4%) rotate(5deg); }
+}
+
+.glass { @apply bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/10; }
+
+/* Card hover glare + parallax nhận biến --mx/--my từ component */
+.glare { position: relative; overflow: hidden; }
+.glare::after {
+  content: ""; position: absolute; inset: -1px; pointer-events: none;
+  background: radial-gradient(220px 220px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.18), transparent 45%);
+  transition: opacity .2s ease; opacity: 0;
+}
+.glare:hover::after { opacity: 1; }
+
+/* Section divider */
+.section-divider { position: relative; }
+.section-divider::after {
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
+  width:96px; height:4px; bottom:-18px; border-radius:9999px;
+  background: linear-gradient(90deg, #3b5bdb, #364fc7);
+}
+
+/* Navbar pill + trạng thái active */
+.nav-pill { @apply px-3 py-2 rounded-xl hover:bg-white/5; position: relative; }
+.nav-pill.is-active { @apply bg-white/10 text-white; }
+.nav-pill.is-active::after {
+  content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px; border-radius:9999px;
+  background: linear-gradient(90deg, #a5b4fc, #60a5fa);
+}
+/* Brief mode: ẩn bớt chi tiết, chỉ giữ ý chính */
+.brief-mode .muted, .brief-mode ul li:not(:first-child), .brief-mode p:not(:first-child) { opacity: .65; }
+.brief-mode .card p { max-height: 2.4em; overflow: hidden; text-overflow: ellipsis; }
+.brief-mode .prose p { max-height: 4.8em; overflow: hidden; }

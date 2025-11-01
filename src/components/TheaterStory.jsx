@@ -56,13 +56,17 @@ useEffect(() => {
 
   useEffect(() => { playingRef.current = playing; }, [playing]);
 
-  const makeSpeech = (i) => {
-    if (i < 0) {
-      return `**Mở màn** — Xin chào! Mình là người dẫn chuyện.\nHôm nay chúng ta sẽ cùng đi qua 4 giai đoạn: **1975–1978**, **1979–1989**, **1990–2005**, **2006–nay**.\n`;
-    }
-    const a = ACTS[i];
-    return `**${a.year}** - ${a.title}\n${a.desc}`;
-  };
+ const makeSpeech = (i) => {
+  if (i < 0) {
+    return `Xin chào! Mình là người dẫn chuyện.\nHôm nay chúng ta sẽ cùng đi qua 4 giai đoạn: **1975–1978**, **1979–1989**, **1990–2005**, **2006–nay**.\n`;
+  } else if (i >= ACTS.length) {
+    return `**Kết màn** — Cảm ơn bạn đã theo dõi! Hẹn gặp lại trong hành trình sau.`;
+  }
+
+  const a = ACTS[i];
+  return `**${a.year}** - ${a.title}\n${a.desc}`;
+};
+
 
   // Gõ chữ từng ký tự — gated theo opened
   useEffect(() => {
@@ -102,7 +106,8 @@ window.speechSynthesis.speak(u);
   }, [typed, index, voiceOn, opened]);
 
   const prev = () => setIndex((i) => Math.max(-1, i - 1));
-  const next = () => setIndex((i) => Math.min(ACTS.length - 1, i + 1));
+  const next = () => setIndex((i) => Math.min(ACTS.length, i + 1));
+
 
   // HTML hiển thị trong bubble
   const bubbleHTML = useMemo(
@@ -124,7 +129,7 @@ window.speechSynthesis.speak(u);
       </div>
 
       {/* Rối mở màn + bubble */}
-      <div className="intro-actor" style={{ position: "absolute", left: 24, bottom: 160, zIndex: 22 }}>
+      <div className="intro-actor" style={{ position: "absolute", left: 24, bottom: 120, zIndex: 22 }}>
         <img
           src="/images/puppet.png"
           alt="Rối giới thiệu"
@@ -243,6 +248,105 @@ window.speechSynthesis.speak(u);
       )}
     </motion.div>
   );
+// ================== OUTRO ==================
+const Outro = () => {
+  const [closing, setClosing] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
+  const [hasClosed, setHasClosed] = useState(false);
+
+  useEffect(() => {
+    // chỉ chạy một lần dù StrictMode render lại
+    if (hasTriggered) return;
+    setHasTriggered(true);
+    const timer = setTimeout(() => setClosing(true), 5000);
+    return () => clearTimeout(timer);
+  }, [hasTriggered]);
+
+  useEffect(() => {
+    if (closing && !hasClosed) {
+      setHasClosed(true);
+      const timer = setTimeout(() => setOpened(false), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [closing, hasClosed]);
+
+  return (
+    <div className="scene outro-scene relative h-full min-h-[420px]">
+      {/* nền outro */}
+      <div className="intro-bg" style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+        <img
+          src="/images/nen_1.png"
+          alt="Nền outro"
+          style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.65)" }}
+        />
+      </div>
+
+      <div className="scene-chip" style={{ zIndex: 2 }}>
+        <span className="dot" />
+        <span className="label-text">Kết màn - Cảm ơn</span>
+      </div>
+
+      {/* Rối bên trái + bong bóng cảm ơn */}
+      <div className="outro-actor" style={{ position: "absolute", left: 24, bottom: 120, zIndex: 22 }}>
+        <motion.img
+          src="/images/puppet.png"
+          alt="Rối cảm ơn"
+          className="puppet-3d"
+          style={{ width: "clamp(120px, 16vw, 180px)", height: "auto", pointerEvents: "none" }}
+          animate={closing ? { rotate: [0, -15, 0], y: [0, -10, 0] } : { rotate: 0 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        />
+        {!closing && (
+          <motion.div
+            className="outro-bubble bubble-card"
+            style={{
+              position: "absolute",
+              left: "calc(100% + 12px)",
+              bottom: "100px",
+              zIndex: 40,
+              boxShadow: "0 18px 60px -10px rgba(0,0,0,.35)",
+              minWidth: "clamp(260px, 46vw, 520px)",
+              maxWidth: "clamp(320px, 56vw, 640px)",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2 }}
+          >
+            <div className="bubble-text font-medium leading-relaxed text-center">
+              <strong>Cảm ơn bạn đã theo dõi!</strong>
+              <br />
+              Hy vọng chuyến hành trình qua các giai đoạn lịch sử
+              đã mang lại cho bạn nhiều cảm xúc và hiểu biết hơn.
+            </div>
+          </motion.div>
+        )}
+      </div>
+
+      {/* Hiệu ứng đóng màn */}
+      {closing && !hasClosed && (
+        <>
+          <motion.div
+            className="curtain curtain-left"
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            transition={{ duration: 1.5, ease: [0.2, 0.8, 0.2, 1] }}
+          />
+          <motion.div
+            className="curtain curtain-right"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            transition={{ duration: 1.5, ease: [0.2, 0.8, 0.2, 1] }}
+          />
+        </>
+      )}
+    </div>
+  );
+};
+
+
+
+
 
   return (
     <section className="py-8 md:py-10">
@@ -282,6 +386,7 @@ window.speechSynthesis.speak(u);
             {index === 1 && <Act2 key="a2" />}
             {index === 2 && <Act3 key="a3" />}
             {index === 3 && <Act4 key="a4" />}
+            {index === 4 && <Outro key="outro" />}
           </AnimatePresence>
 
           {/* controls */}
@@ -292,9 +397,10 @@ window.speechSynthesis.speak(u);
             <button onClick={() => setPlaying(v=>!v)} className="btn-primary small">
               {playing ? <Pause size={16}/> : <Play size={16}/> } {playing ? "Tạm dừng" : "Tiếp tục"}
             </button>
-            <button onClick={() => next()} disabled={index >= ACTS.length - 1} className="btn-ghost small">
-              Tiếp <ChevronRight size={16}/>
-            </button>
+           <button onClick={() => next()} disabled={index >= ACTS.length} className="btn-ghost small">
+  Tiếp <ChevronRight size={16}/>
+</button>
+
           </div>
 
           {/* Curtains */}

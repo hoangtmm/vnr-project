@@ -1,0 +1,66 @@
+/* Vietnamese label rendering for narration controls */
+.narration-controls .btn-ghost.small,
+.narration-controls .btn-primary.small { font-size: 0; }
+.narration-controls .btn-ghost.small::after,
+.narration-controls .btn-primary.small::after {
+  content: attr(data-label);
+  font-size: 13px;
+  margin-left: 8px;
+}
+
+/* Ensure chip shows cleaned text we inject */
+.scene-chip > span:not(.dot):not(.label-text){ display:none; }
+.scene-chip .label-text{ margin-left:6px; font-weight:600; color:#e5edff; }
+/* Hide any legacy blue puppet/aux elements in Act 2 */
+.scene.act-2 .act2-podium,
+.scene.act-2 .act2-watcher,
+.scene.act-2 .gaze-svg,
+.scene.act-2 .tiny-puppet,
+.scene.act-2 .puppet.fx { display: none !important; }
+/* Hide any backdrop/parallax shapes for Act 2 */
+.scene.act-2 .scene-backdrop,
+.scene.act-2 .scene-parallax,
+.scene.act-2 .desk,
+.scene.act-2 .pole { display: none !important; }
+/* Remove stage-wide glow/spotlight overlays inside TheaterStory */
+.theater-stage .theater-backdrop,
+.theater-stage .theater-sweep,
+.theater-stage .intro-holo,
+.theater-stage .spotlight,
+.theater-stage .theater-floor { display: none !important; }
+/* Safety: hide spotlight anywhere if still present */
+.theater-sweep, .spotlight { display: none !important; }
+
+/* Explicit kill for stages marked no-glow */
+.theater-stage.no-glow .theater-backdrop,
+.theater-stage.no-glow .theater-sweep,
+.theater-stage.no-glow .intro-holo,
+.theater-stage.no-glow .spotlight,
+.theater-stage.no-glow .scene-parallax,
+.theater-stage.no-glow .fx-blob { display: none !important; }
+/* Act 2 backdrop: use image background_2.png */
+.scene.act-2{
+  background: url('/images/background_2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Kill any pseudo-element overlays in Act 2 */
+.scene.act-2::before,
+.scene.act-2::after { content: none !important; display: none !important; background: none !important; }
+/* Hide redundant podium desk in Act 1 (image already has lectern) */
+.scene.act-1 .desk { display: none !important; }
+/* Act 1 backdrop: use image background_1.png */
+.scene.act-1 .scene-backdrop{
+  background: url('/images/background_1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1 !important;
+}
+.scene.act-1 .scene-parallax{ display:none; }
+
+/* Unify bubble shadow to neutral (avoid blue glow) */
+.theater-stage .bubble-card{ box-shadow: 0 18px 60px -10px rgba(0,0,0,.35) !important; }
+.scene.act-2 .bubble-card{ filter: drop-shadow(0 12px 28px rgba(0,0,0,.45)) !important; }
+.scene.act-2 .fx-blob { display:none !important; }

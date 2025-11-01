@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 320 420">
+  <defs>
+    <filter id="bgBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+    <filter id="softDropA" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,.35)"/>
+    </filter>
+    <linearGradient id="harnessGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4c0519"/>
+      <stop offset="1" stop-color="#7f1d1d"/>
+    </linearGradient>
+    <linearGradient id="beretGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#be123c"/>
+      <stop offset="1" stop-color="#9f1239"/>
+    </linearGradient>
+    <pattern id="armbandCamo" x="0" y="0" width="18" height="12" patternUnits="userSpaceOnUse">
+      <rect width="18" height="12" fill="#3b0a1a"/>
+      <path d="M1 6 h6 v3 h-6z M8 2 h8 v3 h-8z" fill="#5b1026"/>
+    </pattern>
+  </defs>
+  <g opacity=".45" filter="url(#bgBlur)">
+    <ellipse cx="160" cy="210" rx="150" ry="100" fill="#7f1d1d"/>
+  </g>
+  <image href="puppet.png" xlink:href="puppet.png" x="0" y="0" width="320" height="420"
+         style="image-rendering: optimizeQuality;"
+         preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- combat look: beret + harness + armbands + knee pads -->
+  <g opacity=".97">
+    <!-- beret -->
+    <g filter="url(#softDropA)">
+      <path d="M108 108 q52 -28 104 0 q-18 22 -86 18 q-14 -1 -18 -18z" fill="url(#beretGrad)"/>
+      <circle cx="210" cy="110" r="7" fill="#e2e8f0"/>
+    </g>
+    <!-- chest harness -->
+    <g filter="url(#softDropA)">
+      <path d="M110 170 h100 v24 h-100z" fill="url(#harnessGrad)"/>
+      <path d="M116 194 h88 v44 h-88z" fill="#3f1d29" opacity=".85"/>
+      <rect x="110" y="170" width="16" height="90" rx="6" fill="url(#harnessGrad)"/>
+      <rect x="194" y="170" width="16" height="90" rx="6" fill="url(#harnessGrad)"/>
+      <rect x="150" y="215" width="20" height="18" rx="4" fill="#7f1d1d"/>
+    </g>
+    <!-- armbands (both arms) -->
+    <g filter="url(#softDropA)">
+      <rect x="224" y="178" width="20" height="12" rx="4" fill="url(#armbandCamo)"/>
+      <rect x="88" y="178" width="20" height="12" rx="4" fill="url(#armbandCamo)"/>
+    </g>
+    <!-- knee pads -->
+    <g filter="url(#softDropA)">
+      <ellipse cx="118" cy="286" rx="18" ry="14" fill="#3f1d29" stroke="#7f1d1d" stroke-width="2"/>
+      <ellipse cx="200" cy="294" rx="18" ry="14" fill="#3f1d29" stroke="#7f1d1d" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

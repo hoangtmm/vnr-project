@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 320 420">
+  <defs>
+    <filter id="bgBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+    <filter id="softDrop" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,.35)"/>
+    </filter>
+    <linearGradient id="vestGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="helmetGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f3d8b"/>
+      <stop offset="1" stop-color="#0b2c6a"/>
+    </linearGradient>
+    <pattern id="camo" x="0" y="0" width="24" height="18" patternUnits="userSpaceOnUse">
+      <rect width="24" height="18" fill="#182235"/>
+      <path d="M2 8 h6 v4 h-6z M12 2 h8 v3 h-8z M14 12 h6 v3 h-6z" fill="#22324b"/>
+      <path d="M6 3 h5 v3 h-5z M1 13 h8 v3 h-8z" fill="#0f1a2b"/>
+    </pattern>
+  </defs>
+  <!-- glow behind -->
+  <g opacity=".45" filter="url(#bgBlur)">
+    <ellipse cx="160" cy="210" rx="150" ry="100" fill="#1f3d8b"/>
+  </g>
+
+  <!-- base puppet (3D original) -->
+  <image href="puppet.png" xlink:href="puppet.png" x="0" y="0" width="320" height="420"
+         style="image-rendering: optimizeQuality;"
+         preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- combat gear overlay -->
+  <g id="combat-gear" opacity=".96">
+    <!-- helmet -->
+    <g filter="url(#softDrop)">
+      <ellipse cx="160" cy="108" rx="64" ry="44" fill="url(#helmetGrad)"/>
+      <rect x="100" y="122" width="120" height="14" rx="7" fill="#0b2c6a"/>
+      <!-- chin strap -->
+      <path d="M144 144 q16 10 32 0 v6 q-16 10 -32 0z" fill="#0b2c6a"/>
+      <!-- insignia -->
+      <circle cx="200" cy="110" r="8" fill="#e2e8f0"/>
+      <path d="M196 110 l4 4 6-8" stroke="#38bdf8" stroke-width="3" fill="none"/>
+    </g>
+
+    <!-- tactical vest -->
+    <g filter="url(#softDrop)">
+      <rect x="110" y="158" width="100" height="96" rx="18" fill="url(#vestGrad)"/>
+      <rect x="110" y="158" width="100" height="26" rx="18" fill="#0d1b2e" opacity=".7"/>
+      <!-- pockets -->
+      <rect x="118" y="194" width="36" height="26" rx="6" fill="url(#camo)" stroke="#0b2c6a" stroke-width="2"/>
+      <rect x="166" y="194" width="36" height="26" rx="6" fill="url(#camo)" stroke="#0b2c6a" stroke-width="2"/>
+      <!-- belt -->
+      <rect x="110" y="246" width="100" height="14" rx="6" fill="#0d1b2e"/>
+      <rect x="155" y="246" width="20" height="14" rx="3" fill="#1f2937"/>
+    </g>
+
+    <!-- knee pads -->
+    <g filter="url(#softDrop)">
+      <ellipse cx="118" cy="286" rx="18" ry="14" fill="#20314b" stroke="#0b2c6a" stroke-width="2"/>
+      <ellipse cx="200" cy="294" rx="18" ry="14" fill="#20314b" stroke="#0b2c6a" stroke-width="2"/>
+    </g>
+
+    <!-- shoulder patch -->
+    <rect x="228" y="168" width="18" height="12" rx="3" fill="#38bdf8" filter="url(#softDrop)"/>
+  </g>
+</svg>

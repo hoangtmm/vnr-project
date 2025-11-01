@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 320 420">
+  <defs>
+    <filter id="bgBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+  </defs>
+  <!-- soft glow background -->
+  <g opacity=".55" filter="url(#bgBlur)">
+    <ellipse cx="160" cy="210" rx="140" ry="90" fill="#7c89f8"/>
+  </g>
+  <!-- 3D puppet base (reuses puppet.png) -->
+  <image href="puppet.png" xlink:href="puppet.png" x="0" y="0" width="320" height="420"
+         style="image-rendering: optimizeQuality;" preserveAspectRatio="xMidYMid meet"/>
+</svg>

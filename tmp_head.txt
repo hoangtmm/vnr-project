@@ -1,0 +1,7 @@
+ duration: 0.35 }}
+        />
+        <motion.img
+          src="/images/puppet_3.png"
+          alt="puppet center"
+          className="puppet-3d soft"
+          style={{ width: "clamp(220px, 28vw, 

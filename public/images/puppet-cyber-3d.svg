@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 320 420">
+  <defs>
+    <filter id="bgBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+    <filter id="softDropC" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,.35)"/>
+    </filter>
+    <linearGradient id="techVest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1324"/>
+      <stop offset="1" stop-color="#0a223e"/>
+    </linearGradient>
+  </defs>
+  <g opacity=".5" filter="url(#bgBlur)">
+    <ellipse cx="160" cy="210" rx="150" ry="100" fill="#0ea5e9"/>
+  </g>
+  <image href="puppet.png" xlink:href="puppet.png" x="0" y="0" width="320" height="420"
+         style="image-rendering: optimizeQuality;"
+         preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- cyber gear: visor + tech vest + neon nodes -->
+  <g opacity=".97">
+    <!-- visor -->
+    <g filter="url(#softDropC)">
+      <rect x="120" y="120" width="80" height="16" rx="8" fill="#0ea5e9" opacity=".85"/>
+      <rect x="110" y="118" width="12" height="20" rx="6" fill="#0ea5e9" opacity=".75"/>
+      <rect x="198" y="118" width="12" height="20" rx="6" fill="#0ea5e9" opacity=".75"/>
+    </g>
+    <!-- tech vest -->
+    <g filter="url(#softDropC)">
+      <rect x="110" y="158" width="100" height="96" rx="18" fill="url(#techVest)"/>
+      <!-- neon strips -->
+      <rect x="118" y="170" width="84" height="6" rx="3" fill="#38bdf8" opacity=".7"/>
+      <rect x="118" y="186" width="84" height="6" rx="3" fill="#22d3ee" opacity=".7"/>
+      <!-- modules -->
+      <rect x="122" y="204" width="32" height="24" rx="6" fill="#0c1a2e" stroke="#1e3a8a" stroke-width="2"/>
+      <rect x="166" y="204" width="32" height="24" rx="6" fill="#0c1a2e" stroke="#1e3a8a" stroke-width="2"/>
+    </g>
+    <!-- neon nodes around chest -->
+    <circle cx="214" cy="170" r="5" fill="#a5f3fc"/>
+    <circle cx="106" cy="180" r="4" fill="#a5f3fc"/>
+    <circle cx="200" cy="236" r="4" fill="#a5f3fc"/>
+  </g>
+
+  <!-- ambient cyber ring -->
+  <circle cx="160" cy="200" r="70" fill="none" stroke="#a5f3fc" stroke-width="4" opacity=".55"/>
+  <circle cx="220" cy="180" r="6" fill="#a5f3fc"/>
+  <circle cx="120" cy="240" r="6" fill="#a5f3fc"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 320 420">
+  <defs>
+    <filter id="bgBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="24"/>
+    </filter>
+    <filter id="softDropD" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,.35)"/>
+    </filter>
+    <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2937"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <g opacity=".45" filter="url(#bgBlur)">
+    <ellipse cx="160" cy="210" rx="150" ry="100" fill="#334155"/>
+  </g>
+  <image href="puppet.png" xlink:href="puppet.png" x="0" y="0" width="320" height="420"
+         style="image-rendering: optimizeQuality;"
+         preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- suit overlay: blazer + shirt + tie + pocket square -->
+  <g opacity=".97" filter="url(#softDropD)">
+    <!-- blazer body -->
+    <path d="M110 160 h100 v96 a18 18 0 0 1 -18 18 h-64 a18 18 0 0 1 -18 -18z" fill="url(#suitGrad)"/>
+    <!-- lapels -->
+    <path d="M110 160 l44 48 h-26 l-18 -36z" fill="#111827"/>
+    <path d="M210 160 l-44 48 h26 l18 -36z" fill="#111827"/>
+    <!-- shirt area -->
+    <rect x="146" y="160" width="28" height="54" rx="4" fill="#e5e7eb"/>
+    <!-- tie -->
+    <path d="M160 160 l8 14 -8 18 -8 -18z" fill="#ef4444"/>
+    <!-- pocket square -->
+    <path d="M196 190 l10 8 -14 0z" fill="#e5e7eb"/>
+  </g>
+</svg>

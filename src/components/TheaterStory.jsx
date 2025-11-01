@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, ChevronLeft, ChevronRight, RotateCcw, Volume2, VolumeX } from "lucide-react";
 
@@ -12,6 +12,57 @@ export default function TheaterStory({ autoPlay = true, paceMs = 5200, accent = 
     ],
     []
   );
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const mobileBubbleLayout = useMemo(() => ({
+    container: {
+      position: "relative",
+      right: "auto",
+      bottom: "auto",
+      marginTop: "1.5rem",
+      padding: "0 12px",
+      width: "100%",
+      zIndex: 80,
+    },
+    card: {
+      position: "relative",
+      width: "100%",
+      maxWidth: "100%",
+      zIndex: 90,
+      boxShadow: "0 22px 60px -22px rgba(12,18,34,.55)",
+    },
+    puppet: {
+      position: "relative",
+      right: "auto",
+      bottom: "auto",
+      margin: "12px auto 0",
+      display: "block",
+      width: "clamp(100px, 28vw, 140px)",
+      zIndex: 85,
+    },
+  }), []);
+
+  const getBubbleLayout = useCallback((desktopLayout) => ({
+    container: {
+      ...desktopLayout.container,
+      ...(isMobile ? mobileBubbleLayout.container : {}),
+    },
+    card: {
+      ...desktopLayout.card,
+      ...(isMobile ? mobileBubbleLayout.card : {}),
+    },
+    puppet: {
+      ...desktopLayout.puppet,
+      ...(isMobile ? mobileBubbleLayout.puppet : {}),
+    },
+  }), [isMobile, mobileBubbleLayout]);
 // trên cùng component
 const [viVoice, setViVoice] = useState(null);
 
@@ -160,22 +211,37 @@ window.speechSynthesis.speak(u);
   );
 
   // ================== ACTS ==================
-  const Act1 = () => (
-    <div className="scene act-1 relative h-full min-h-[420px]">
+  const Act1 = () => {
+    const layout = getBubbleLayout({
+      container: { position: "absolute", right: 16, bottom: 220, zIndex: 80 },
+      card: { position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 90 },
+      puppet: {
+        position: "absolute",
+        right: "calc(100% + 12px)",
+        bottom: "-8px",
+        width: "clamp(90px, 12vw, 150px)",
+        height: "auto",
+        pointerEvents: "none",
+        zIndex: 85,
+      },
+    });
+
+    return (
+      <div className="scene act-1 relative h-full min-h-[440px] md:min-h-[520px]">
       <div className="scene-chip"><span className="dot" /><span className="label-text">{`${ACTS[0].year} - ${ACTS[0].title}`}</span></div>
       <div className="act1-image" style={{ position: "absolute", inset: 0, zIndex: 6 }}>
         <img src="/images/story_1.png" alt="Giai đoạn 1" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 26%" }} />
       </div>
       {typed && (
-        <div className="act1-bubble-wrap" style={{ position: "absolute", right: 16, bottom: 220, zIndex: 10 }}>
-          <div className="act1-bubble bubble-card" style={{ position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 1 }}>
+        <div className="act1-bubble-wrap" style={layout.container}>
+          <div className="act1-bubble bubble-card" style={layout.card}>
             <button className="voice-btn" title={voiceOn ? "Tắt đọc" : "Bật đọc"} onClick={() => setVoiceOn((v)=>!v)}>
               {voiceOn ? <Volume2 size={16}/> : <VolumeX size={16}/>}
             </button>
             <div className="bubble-text" dangerouslySetInnerHTML={{ __html: bubbleHTML }} />
           </div>
           <img src="/images/puppet.png" alt="Rối suy nghĩ" className="puppet-3d"
-               style={{ position: "absolute", right: "calc(100% + 12px)", bottom: "-8px", width: "clamp(90px, 12vw, 150px)", height: "auto", pointerEvents: "none", zIndex: 0 }} />
+               style={layout.puppet} />
         </div>
       )}
       <div className="act1-crowd" style={{ position: "absolute", left: 0, right: 0, bottom: "6%", display: "flex", justifyContent: "center", gap: "8px", flexWrap: "wrap", zIndex: 5 }}>
@@ -183,71 +249,120 @@ window.speechSynthesis.speak(u);
           <img key={i} src="/images/puppet_2.png" alt="crowd" className="puppet-3d soft" style={{ width: "84px", height: "auto" }} />
         ))}
       </div>
-    </div>
-  );
+      </div>
+    );
+  };
 
-  const Act2 = () => (
-    <div className="scene act-2 relative h-full min-h-[420px]">
+  const Act2 = () => {
+    const layout = getBubbleLayout({
+      container: { position: "absolute", right: 16, bottom: 420, zIndex: 80 },
+      card: { position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 90 },
+      puppet: {
+        position: "absolute",
+        right: "calc(100% + 12px)",
+        bottom: "-8px",
+        width: "clamp(90px, 12vw, 150px)",
+        height: "auto",
+        pointerEvents: "none",
+        zIndex: 85,
+      },
+    });
+
+    return (
+      <div className="scene act-2 relative h-full min-h-[440px] md:min-h-[520px]">
       <div className="scene-chip"><span className="dot" /><span className="label-text">{`${ACTS[1].year} - ${ACTS[1].title}`}</span></div>
       <div className="act2-image" style={{ position: "absolute", inset: 0, zIndex: 6 }}>
         <img src="/images/story_2.png" alt="Giai đoạn 2" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 26%" }} />
       </div>
       {typed && (
-        <div className="act2-bubble-wrap" style={{ position: "absolute", right: 16, bottom: 420, zIndex: 10 }}>
-          <div className="act2-bubble bubble-card" style={{ position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 1 }}>
+        <div className="act2-bubble-wrap" style={layout.container}>
+          <div className="act2-bubble bubble-card" style={layout.card}>
             <button className="voice-btn" title={voiceOn ? "Tắt đọc" : "Bật đọc"} onClick={() => setVoiceOn((v) => !v)}>
               {voiceOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
             <div className="bubble-text" dangerouslySetInnerHTML={{ __html: bubbleHTML }} />
           </div>
           <img src="/images/puppet.png" alt="Rối suy nghĩ" className="puppet-3d"
-               style={{ position: "absolute", right: "calc(100% + 12px)", bottom: "-8px", width: "clamp(90px, 12vw, 150px)", height: "auto", pointerEvents: "none", zIndex: 0 }} />
+               style={layout.puppet} />
         </div>
       )}
-    </div>
-  );
+      </div>
+    );
+  };
 
-  const Act3 = () => (
-    <div className="scene act-3 relative min-h-[100vh] overflow-visible">
+  const Act3 = () => {
+    const layout = getBubbleLayout({
+      container: { position: "absolute", right: 16, bottom: 480, zIndex: 80 },
+      card: { position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 90 },
+      puppet: {
+        position: "absolute",
+        right: "calc(100% + 12px)",
+        bottom: "-8px",
+        width: "clamp(90px, 12vw, 150px)",
+        height: "auto",
+        pointerEvents: "none",
+        zIndex: 85,
+      },
+    });
+
+    return (
+      <div className="scene act-3 relative min-h-[460px] md:min-h-[560px] overflow-visible">
       <div className="scene-chip"><span className="dot" /><span className="label-text">{`${ACTS[2].year} - ${ACTS[2].title}`}</span></div>
       <div className="act3-image" style={{ position: "absolute", inset: 0, zIndex: 6 }}>
         <img src="/images/story_3.png" alt="Giai đoạn 3" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 26%" }} />
       </div>
       {typed && (
-        <div className="act3-bubble-wrap" style={{ position: "absolute", right: 16, bottom: 800, zIndex: 10 }}>
-          <div className="act3-bubble bubble-card" style={{ position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 1 }}>
+        <div className="act3-bubble-wrap" style={layout.container}>
+          <div className="act3-bubble bubble-card" style={layout.card}>
             <button className="voice-btn" title={voiceOn ? "Tắt đọc" : "Bật đọc"} onClick={() => setVoiceOn((v) => !v)}>
               {voiceOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
             <div className="bubble-text" dangerouslySetInnerHTML={{ __html: bubbleHTML }} />
           </div>
           <img src="/images/puppet.png" alt="Rối suy nghĩ" className="puppet-3d"
-               style={{ position: "absolute", right: "calc(100% + 12px)", bottom: "-8px", width: "clamp(90px, 12vw, 150px)", height: "auto", pointerEvents: "none", zIndex: 0 }} />
+               style={layout.puppet} />
         </div>
       )}
-    </div>
-  );
+      </div>
+    );
+  };
 
-  const Act4 = () => (
-    <motion.div className="scene act-4 relative h-full min-h-[420px]">
+  const Act4 = () => {
+    const layout = getBubbleLayout({
+      container: { position: "absolute", right: 16, bottom: 420, zIndex: 80 },
+      card: { position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 90 },
+      puppet: {
+        position: "absolute",
+        right: "calc(100% + 12px)",
+        bottom: "-8px",
+        width: "clamp(90px, 12vw, 150px)",
+        height: "auto",
+        pointerEvents: "none",
+        zIndex: 85,
+      },
+    });
+
+    return (
+      <motion.div className="scene act-4 relative h-full min-h-[440px] md:min-h-[520px]">
       <div className="scene-chip"><span className="dot" /><span className="label-text">{`${ACTS[3].year} - ${ACTS[3].title}`}</span></div>
       <div className="act4-image" style={{ position: "absolute", inset: 0, zIndex: 6 }}>
         <img src="/images/story_4.png" alt="Giai đoạn 4" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 26%" }} />
       </div>
       {typed && (
-        <div className="act4-bubble-wrap" style={{ position: "absolute", right: 16, bottom: 420, zIndex: 10 }}>
-          <div className="act4-bubble bubble-card" style={{ position: "relative", maxWidth: "clamp(260px, 42vw, 520px)", zIndex: 1 }}>
+        <div className="act4-bubble-wrap" style={layout.container}>
+          <div className="act4-bubble bubble-card" style={layout.card}>
             <button className="voice-btn" title={voiceOn ? "Tắt đọc" : "Bật đọc"} onClick={() => setVoiceOn((v) => !v)}>
               {voiceOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
             <div className="bubble-text" dangerouslySetInnerHTML={{ __html: bubbleHTML }} />
           </div>
           <img src="/images/puppet.png" alt="Rối suy nghĩ" className="puppet-3d"
-               style={{ position: "absolute", right: "calc(100% + 12px)", bottom: "-8px", width: "clamp(90px, 12vw, 150px)", height: "auto", pointerEvents: "none", zIndex: 0 }} />
+               style={layout.puppet} />
         </div>
       )}
-    </motion.div>
-  );
+      </motion.div>
+    );
+  };
 // ================== OUTRO ==================
 const Outro = () => {
   const [closing, setClosing] = useState(false);
@@ -344,20 +459,38 @@ const Outro = () => {
   );
 };
 
-
-
-
+  const stageClassName = [
+    "mt-6",
+    "theater-stage",
+    "no-glow",
+    "stage-wide",
+    index >= -1 ? "puppet-show" : "",
+    "rounded-[28px]",
+    "overflow-visible",
+    "relative",
+    "border",
+    "border-[var(--border)]",
+    "bg-[var(--panel)]/90",
+    "shadow-[0_36px_110px_-60px_rgba(12,18,34,0.55)]",
+    "min-h-[min(92vh,720px)]",
+  ].join(" ");
 
   return (
-    <section className="py-8 md:py-10">
+    <section className="py-10 md:py-12">
       <div className="container max-w-7xl">
-        <div className="flex items-center justify-between">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Sân khấu</h2>
-          <div className="flex gap-2">
-            {/* vào Intro trước */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--muted)]">
+              Hoạt cảnh tương tác
+            </span>
+            <h2 className="text-3xl font-bold text-[var(--text)] md:text-4xl">
+              Sân khấu kể chuyện lịch sử
+            </h2>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => { setOpened(true); setIndex(-1); setPlaying(true); }}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/5"
+              className="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel-soft)]/85 px-3 py-2 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--panel-soft)]"
             >
               <Play size={14}/> Mở màn
             </button>
@@ -369,7 +502,7 @@ const Outro = () => {
                 setPlaying(false);
                 if (typeof window !== "undefined") window.speechSynthesis?.cancel();
               }}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/5"
+              className="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel-soft)]/85 px-3 py-2 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--panel-soft)]"
             >
               <RotateCcw size={14}/> Làm lại
             </button>
@@ -377,7 +510,7 @@ const Outro = () => {
         </div>
 
         <div
-          className={`mt-6 theater-stage no-glow stage-wide ${index>=-1? 'puppet-show': ''} rounded-[28px] overflow-hidden border border-white/10 relative`}
+          className={`${stageClassName}`}
           style={{ "--accent": index===1 ? "transparent" : accent }}
         >
           <AnimatePresence mode="wait">

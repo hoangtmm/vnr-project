@@ -4,32 +4,41 @@
 
 /* ================= THEME VARIABLES (LIGHT/DARK) ================= */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  /* LIGHT — off-white, dịu mắt */
-  --bg: #f5f7fb;
+  /* LIGHT — airy, archival paper feel */
+  --bg: #f2f5ff;
+  --bg-soft: #f9faff;
   --panel: #ffffff;
-  --text: #0b1220;
-  --muted: #6b7280;
-  --border: rgba(2, 6, 23, 0.10);
-  --chip-bg: rgba(2, 6, 23, 0.06);
-  --bubble-bg: rgba(255, 255, 255, 0.95);
-  --bubble-text: #0b1220;
-  --brand: #364fc7;
+  --panel-soft: #f4f6ff;
+  --text: #111936;
+  --muted: #4b5475;
+  --border: rgba(17, 25, 54, 0.1);
+  --chip-bg: rgba(17, 25, 54, 0.06);
+  --bubble-bg: rgba(255, 255, 255, 0.96);
+  --bubble-text: #10162c;
+  --brand: #3048d8;
   --brand-soft: #94a3ff;
+  --brand-warm: #ffb454;
 }
-.dark {
-  /* DARK — xám trung tính */
-  --bg: #1f2937;      /* slate-700-ish */
-  --panel: #2a3140;   /* xám trung */
-  --text: #e5e7eb;
-  --muted: #9aa4b2;
-  --border: rgba(255,255,255,0.12);
-  --chip-bg: rgba(255,255,255,0.06);
-  --bubble-bg: rgba(42,49,64,0.92);
-  --bubble-text: #e5e7eb;
+
+html.dark {
+  color-scheme: dark;
+
+  /* DARK — deep navy with warm accents */
+  --bg: #0c162a;
+  --bg-soft: #13203a;
+  --panel: #1b2640;
+  --panel-soft: #162036;
+  --text: #e7ecff;
+  --muted: #a9b4d6;
+  --border: rgba(148, 163, 255, 0.18);
+  --chip-bg: rgba(148, 163, 255, 0.1);
+  --bubble-bg: rgba(24, 34, 60, 0.94);
+  --bubble-text: #e6ecff;
   --brand: #94a3ff;
   --brand-soft: #c7d2fe;
+  --brand-warm: #f9c97d;
 }
 
 /* ================= GLOBAL ================= */
@@ -46,6 +55,27 @@ body {
 
 /* smooth transitions on theme switch */
 * { transition: background-color .25s ease, border-color .25s ease, color .25s ease; }
+
+/* surface helpers */
+.surface-card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 48px -28px rgba(17,25,54,0.35);
+}
+.surface-soft{
+  background: color-mix(in srgb, var(--panel) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 16px 40px -30px rgba(17,25,54,0.28);
+}
+.nav-surface{
+  background: color-mix(in srgb, var(--bg) 55%, var(--panel) 45%);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 12px 32px -18px rgba(15,23,42,0.35);
+}
+html.dark .nav-surface{
+  background: color-mix(in srgb, rgba(10,17,34,0.65) 60%, var(--panel) 40%);
+  box-shadow: 0 18px 42px -22px rgba(6,12,24,0.65);
+}
 
 /* ===== Blob background ===== */
 .fx-blob {
@@ -163,11 +193,13 @@ html:not(.dark) .hero-card{
 }
 
 /* scroll mouse indicator */
-.scroll-mouse { width:28px; height:44px; border-radius:9999px; border:2px solid rgba(255,255,255,.45); position:relative; opacity:.9; }
+.scroll-mouse { width:28px; height:44px; border-radius:9999px; border:2px solid rgba(48,72,216,.35); position:relative; opacity:.9; }
+.dark .scroll-mouse { border-color: rgba(255,255,255,.45); }
 .scroll-mouse .wheel{
   position:absolute; left:50%; top:8px; width:4px; height:8px; border-radius:9999px;
-  transform: translateX(-50%); background: rgba(255,255,255,.8); animation: wheel 1.6s ease-in-out infinite;
+  transform: translateX(-50%); background: rgba(48,72,216,.6); animation: wheel 1.6s ease-in-out infinite;
 }
+.dark .scroll-mouse .wheel { background: rgba(255,255,255,.8); }
 @keyframes wheel{
   0% { transform: translate(-50%,0); opacity:1; }
   60%{ transform: translate(-50%,12px); opacity:.2; }
@@ -314,7 +346,8 @@ html:not(.dark) .hero-card{
 
 /* ================= THEATER STAGE ================= */
 .theater-stage{
-  position:relative; min-height:520px;
+  position:relative;
+  min-height: clamp(440px, 70vh, 680px);
   background: var(--panel);
   --sweep: 0%;
   border-color: var(--border) !important;
@@ -708,11 +741,12 @@ html:not(.dark) .scene.act-4 .scene-backdrop{
   position:absolute;
   padding:12px 14px 14px 14px;
   border-radius:14px;
-  background: var(--bubble-bg);
-  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--bubble-bg) 82%, rgba(255,255,255,0.12));
+  border:1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,0.18));
   color: var(--bubble-text);
   backdrop-filter: blur(8px);
-  box-shadow: 0 18px 60px -10px rgba(59,91,219,.35);
+  box-shadow: 0 24px 80px -30px rgba(12,18,34,.55);
+  z-index: 90;
 }
 .bubble-card .bubble-text{ font-size: clamp(16px, 1.25vw, 19px); line-height:1.55; }
 .bubble-card .caret{ margin-left:2px; animation: caretBlink 1s steps(1) infinite; }
@@ -754,26 +788,25 @@ html:not(.dark) [class*="text-white/"]{ color: var(--text) !important; }
 .act1-bubble{ padding:14px 16px; filter: drop-shadow(0 12px 28px rgba(0,0,0,.45)); }
 /* === THEME TOKENS (trung tính, KHÔNG xanh) === */
 :root {
-  --bgL1: #f3f5f9;   /* nền chính light (xám nhạt) */
-  --bgL2: #e9edf4;   /* lớp trên light */
+  --bgL1: #f4f6ff;
+  --bgL2: #e8edfb;
   --surfaceL: #ffffff;
-  --inkL: #0b1220;
+  --inkL: #111936;
 
-  --bgD1: #121418;   /* nền chính dark (xám than) */
-  --bgD2: #0e1116;   /* lớp trên dark */
-  --surfaceD: #161a20;
-  --inkD: #e6e9ef;
+  --bgD1: #0c162a;
+  --bgD2: #111d34;
+  --surfaceD: #1b2640;
+  --inkD: #e7ecff;
 
-  --accent: #7c89f8; /* chỉ dùng cho điểm nhấn nhỏ, KHÔNG nhuộm nền */
+  --accent: #7c89f8;
 }
 
-/* Nền tổng thể */
 html:not(.dark) body {
   background: linear-gradient(180deg, var(--bgL2), var(--bgL1));
   color: var(--inkL);
 }
 html.dark body {
-  background: linear-gradient(180deg, var(--bgD2), var(--bgD1));
+  background: radial-gradient(circle at 20% 0%, rgba(148,163,255,0.16), transparent 55%), linear-gradient(180deg, var(--bgD2), var(--bgD1));
   color: var(--inkD);
 }
 
@@ -785,7 +818,7 @@ html.dark .stage-aurora::before,
 html.dark .aura,
 html.dark .spotlight,
 html.dark .map-box {
-  background: linear-gradient(180deg, var(--bgD2), var(--bgD1)) !important;
+  background: color-mix(in srgb, var(--surfaceD) 85%, transparent) !important;
   box-shadow: none;
 }
 html:not(.dark) .theater-stage,
@@ -795,7 +828,7 @@ html:not(.dark) .stage-aurora::before,
 html:not(.dark) .aura,
 html:not(.dark) .spotlight,
 html:not(.dark) .map-box {
-  background: linear-gradient(180deg, var(--bgL2), var(--bgL1)) !important;
+  background: color-mix(in srgb, var(--surfaceL) 92%, transparent) !important;
   box-shadow: none;
 }
 
@@ -841,39 +874,13 @@ html:not(.dark) .section-divider{
 .hero-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,.35) !important; }
 /* ==== HARD OVERRIDE cho dark: bỏ xanh, dùng xám trung tính ==== */
 html.dark body {
-  background: linear-gradient(180deg, #0e1116, #121418) !important;
-  color: #e6e9ef !important;
+  background: radial-gradient(circle at 10% 0%, rgba(94,113,255,0.16), transparent 55%), linear-gradient(180deg, var(--bgD2), var(--bgD1)) !important;
+  color: var(--inkD) !important;
 }
 
-html.dark .theater-stage,
-html.dark .theater-backdrop,
-html.dark .scene .scene-backdrop,
-html.dark .stage-aurora::before,
-html.dark .aura,
-html.dark .spotlight,
-html.dark .map-box {
-  background: linear-gradient(180deg, #0e1116, #121418) !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-/* Nếu còn rule gradient xanh ở các act, triệt luôn */
 html.dark .scene.act-1 .scene-backdrop,
 html.dark .scene.act-2 .scene-backdrop,
 html.dark .scene.act-3 .scene-backdrop,
 html.dark .scene.act-4 .scene-backdrop {
-  background: linear-gradient(180deg, #0e1116, #121418) !important;
-}
-/* ==== FORCE DARK OVERRIDE cuối cùng ==== */
-html.dark body {
-  background: linear-gradient(180deg, #0e1116, #121418) !important;
-  color: #e6e9ef !important;
-}
-
-html.dark .theater-stage,
-html.dark .theater-backdrop,
-html.dark .scene .scene-backdrop {
-  background: linear-gradient(180deg, #0e1116, #121418) !important;
-  box-shadow: none !important;
-  filter: none !important;
+  background: color-mix(in srgb, var(--surfaceD) 85%, transparent) !important;
 }

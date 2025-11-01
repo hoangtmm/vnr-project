@@ -29,17 +29,19 @@ export default function QuizLauncher({ data, knowledge }) {
         {/* Card Launcher: glass + gradient viền + glow */}
         <div
           ref={launcherRef}
-          className="mx-auto max-w-3xl relative rounded-3xl p-[2px] bg-gradient-to-br from-brand-500/40 via-white/10 to-amber-400/30
-                     shadow-[0_20px_60px_-10px_rgba(59,91,219,.25)]"
+          className="relative mx-auto max-w-3xl rounded-3xl p-[2px] bg-gradient-to-br from-[var(--brand)]/45 via-white/40 to-[var(--brand-warm)]/40 shadow-[0_24px_80px_-40px_rgba(48,72,216,0.65)]"
         >
-          <div className="rounded-3xl bg-white/[.06] dark:bg-slate-900/70 backdrop-blur-xl border border-white/[.12] px-8 py-10 text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow">Quiz</h2>
-            <p className="mt-2 text-slate-300">Nhấn vào nút dưới để bắt đầu. Có gợi ý thông minh</p>
+          <div className="rounded-3xl border border-[var(--border)] bg-[var(--panel)]/95 px-8 py-10 text-center backdrop-blur">
+            <h2 className="text-3xl font-extrabold text-[var(--text)] md:text-4xl">Quiz Kiểm Tra Kiến Thức</h2>
+            <p className="mt-3 text-[var(--muted)]">
+              Sẵn sàng tổng kết hiểu biết về tổ chức và hoạt động tình báo Việt Nam? Bộ câu hỏi có gợi ý thông minh
+              sẽ giúp bạn ôn lại những điểm then chốt.
+            </p>
 
             <div className="mt-7 flex items-center justify-center gap-3">
               <button
                 onClick={() => setOpen(true)}
-                className="px-6 py-3 rounded-2xl text-white font-medium bg-gradient-to-r from-pink-500 to-amber-400 shadow-card shine"
+                className="shine rounded-2xl bg-gradient-to-r from-[var(--brand)] to-[var(--brand-warm)] px-6 py-3 text-white font-medium shadow-card"
               >
                 Làm Quiz
               </button>
@@ -47,7 +49,7 @@ export default function QuizLauncher({ data, knowledge }) {
             </div>
 
             {/* aura vòng tròn nhỏ phía sau cho sang */}
-            <div className="pointer-events-none absolute -z-10 inset-0 rounded-3xl aura" />
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl aura" />
           </div>
         </div>
 
@@ -74,22 +76,22 @@ export default function QuizLauncher({ data, knowledge }) {
                 transition={{ duration: .22 }}
                 aria-modal="true" role="dialog"
               >
-                <div className="w-full max-w-4xl relative rounded-3xl p-[2px] bg-gradient-to-br from-brand-500/40 via-white/10 to-amber-400/30">
-                  <div className="rounded-3xl bg-white dark:bg-slate-900 border border-white/[.12] dark:border-slate-800 overflow-hidden">
+                <div className="relative w-full max-w-4xl rounded-3xl p-[2px] bg-gradient-to-br from-[var(--brand)]/45 via-white/30 to-[var(--brand-warm)]/40">
+                  <div className="overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--panel)]">
                     {/* Header modal */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-white/[.08] dark:border-slate-800 bg-white/[.65] dark:bg-slate-900/70 backdrop-blur">
-                      <h3 className="text-lg font-semibold text-brand-900 dark:text-white">Quiz</h3>
+                    <div className="flex items-center justify-between border-b border-[var(--border)] bg-white/80 px-6 py-4 backdrop-blur dark:bg-[rgba(24,34,60,0.9)]">
+                      <h3 className="text-lg font-semibold text-[var(--text)]">Quiz</h3>
                       <button
                         onClick={() => setOpen(false)}
                         aria-label="Đóng quiz"
-                        className="rounded-full p-2 border border-white/[.18] dark:border-slate-700 hover:bg-white/[.06] dark:hover:bg-slate-800 transition"
+                        className="rounded-full border border-[var(--border)] p-2 transition hover:bg-white/60 dark:hover:bg-[rgba(24,34,60,0.8)]"
                       >
                         <X size={16} />
                       </button>
                     </div>
 
                     {/* Nội dung Quiz */}
-                    <div className="p-6">
+                    <div className="p-6 text-left text-[var(--text)] dark:text-[var(--bubble-text)]">
                       <QuizAI data={data} knowledge={knowledge} />
                     </div>
                   </div>

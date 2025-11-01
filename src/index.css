@@ -864,3 +864,16 @@ html.dark .scene.act-3 .scene-backdrop,
 html.dark .scene.act-4 .scene-backdrop {
   background: linear-gradient(180deg, #0e1116, #121418) !important;
 }
+/* ==== FORCE DARK OVERRIDE cuối cùng ==== */
+html.dark body {
+  background: linear-gradient(180deg, #0e1116, #121418) !important;
+  color: #e6e9ef !important;
+}
+
+html.dark .theater-stage,
+html.dark .theater-backdrop,
+html.dark .scene .scene-backdrop {
+  background: linear-gradient(180deg, #0e1116, #121418) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}

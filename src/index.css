@@ -839,3 +839,28 @@ html:not(.dark) .section-divider{
 
 /* Hover shadow trung tính, bỏ “hào quang xanh” */
 .hero-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,.35) !important; }
+/* ==== HARD OVERRIDE cho dark: bỏ xanh, dùng xám trung tính ==== */
+html.dark body {
+  background: linear-gradient(180deg, #0e1116, #121418) !important;
+  color: #e6e9ef !important;
+}
+
+html.dark .theater-stage,
+html.dark .theater-backdrop,
+html.dark .scene .scene-backdrop,
+html.dark .stage-aurora::before,
+html.dark .aura,
+html.dark .spotlight,
+html.dark .map-box {
+  background: linear-gradient(180deg, #0e1116, #121418) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Nếu còn rule gradient xanh ở các act, triệt luôn */
+html.dark .scene.act-1 .scene-backdrop,
+html.dark .scene.act-2 .scene-backdrop,
+html.dark .scene.act-3 .scene-backdrop,
+html.dark .scene.act-4 .scene-backdrop {
+  background: linear-gradient(180deg, #0e1116, #121418) !important;
+}

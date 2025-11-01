@@ -43,12 +43,7 @@ export default function QuizLauncher({ data, knowledge }) {
               >
                 Làm Quiz
               </button>
-              <a
-                href="#timeline"
-                className="px-6 py-3 rounded-2xl font-medium border border-white/[.18] text-white/90 hover:bg-white/[.06] transition"
-              >
-                Xem Timeline
-              </a>
+            
             </div>
 
             {/* aura vòng tròn nhỏ phía sau cho sang */}
